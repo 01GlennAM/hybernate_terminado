@@ -58,6 +58,8 @@ public class Main {
             System.out.println("8. Gestionar UsuarioRol");
             System.out.println("9. Gestionar ProgresoLeccion");
             System.out.println("10. Gestionar Rol");
+            System.out.println("11. Generar PDF General");
+            
 
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
@@ -76,6 +78,8 @@ public class Main {
                 case 8 -> menuUsuarioRol();
                 case 9 -> menuProgresoLeccion();
                 case 10 -> menuRol();
+                case 11 -> generarReporteGeneral();
+                
 
                 case 0 -> exit = true;
                 default -> System.out.println("Opción no válida.");
@@ -128,7 +132,9 @@ public class Main {
                             rol);
 
                     usuarioRepo.save(usuario);
-                    PdfGenerator.generarPdfUsuario(usuario); // se genera el pdf
+
+                    /*-------------------------------------------------------------------- */
+                    PdfGenerator.generarPdfUsuario(usuario); // SE GENERA EL PDF
 
                     System.out.println("Usuario guardado correctamente.");
 
@@ -966,5 +972,26 @@ public class Main {
             }
         }
     }
+
+    private static void generarReporteGeneral() {
+
+    PdfGenerator.generarPdfGeneral(
+
+            usuarioRepo.findAll(),
+            cursoRepo.findAll(),
+            categoriaRepo.findAll(),
+            inscripcionRepo.findAll(),
+            leccionRepo.findAll(),
+            moduloRepo.findAll(),
+            pagoRepo.findAll(),
+            rolRepo.findAll(),
+            usuarioRolRepo.findAll(),
+            progresoLeccionRepo.findAll()
+
+    );
+
+    System.out.println("PDF GENERAL GENERADO.");
+}
+
 
 }
